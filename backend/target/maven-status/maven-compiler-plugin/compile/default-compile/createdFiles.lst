@@ -1,0 +1,6 @@
+com\example\assistant\client\OllamaClient.class
+com\example\assistant\service\ChatService.class
+com\example\assistant\AssistantApplication.class
+com\example\assistant\controller\ChatController.class
+com\example\assistant\dto\ChatResponse.class
+com\example\assistant\dto\ChatRequest.class
