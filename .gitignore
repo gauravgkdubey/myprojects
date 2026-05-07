@@ -1,0 +1,8 @@
+backend/target
+backend/target/assistant-1.0.0.jar
+backend/target/assistant-1.0.0.jar.original
+backend/target/classes/com/example/assistant/AssistantApplication.class
+backend/target/classes/com/example/assistant/controller/ChatController.class
+backend/target/classes/com/example/assistant/dto/ChatRequest.class
+backend/target/classes/com/example/assistant/dto/ChatResponse.class
+backend/target/classes/com/example/assistant/service/ChatService.class
