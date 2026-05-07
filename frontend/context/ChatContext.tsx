@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { createContext, useContext, useEffect, useMemo, useReducer, type ReactNode } from "react";
-import { sendMessage as sendMessageApi } from "@/services/api";
+import { createContext, useContext, useEffect, useMemo, useReducer, type ReactNode } from 'react';
+import { sendMessage as sendMessageApi } from '@/services/api';
 
-export type MessageRole = "user" | "assistant";
+export type MessageRole = 'user' | 'assistant';
 
 export interface Message {
   role: MessageRole;
@@ -18,14 +18,14 @@ interface ChatState {
 }
 
 type ChatAction =
-  | { type: "setPrompt"; payload: string }
-  | { type: "setLoading"; payload: boolean }
-  | { type: "addMessage"; payload: Message }
-  | { type: "clearMessages" };
+  | { type: 'setPrompt'; payload: string }
+  | { type: 'setLoading'; payload: boolean }
+  | { type: 'addMessage'; payload: Message }
+  | { type: 'clearMessages' };
 
 const initialState: ChatState = {
   messages: [],
-  prompt: "",
+  prompt: '',
   isLoading: false,
 };
 
@@ -39,13 +39,13 @@ interface ChatContextValue extends ChatState {
 
 function chatReducer(state: ChatState, action: ChatAction): ChatState {
   switch (action.type) {
-    case "setPrompt":
+    case 'setPrompt':
       return { ...state, prompt: action.payload };
-    case "setLoading":
+    case 'setLoading':
       return { ...state, isLoading: action.payload };
-    case "addMessage":
+    case 'addMessage':
       return { ...state, messages: [...state.messages, action.payload] };
-    case "clearMessages":
+    case 'clearMessages':
       return { ...state, messages: [] };
     default:
       return state;
@@ -56,7 +56,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(chatReducer, initialState);
 
   useEffect(() => {
-    const saved = localStorage.getItem("chatMessages");
+    const saved = localStorage.getItem('chatMessages');
     if (saved) {
       try {
         const parsed = JSON.parse(saved) as Message[];
@@ -64,16 +64,16 @@ export function ChatProvider({ children }: { children: ReactNode }) {
           ...msg,
           timestamp: msg.timestamp,
         }));
-        dispatch({ type: "clearMessages" });
-        messages.forEach((message) => dispatch({ type: "addMessage", payload: message }));
+        dispatch({ type: 'clearMessages' });
+        messages.forEach((message) => dispatch({ type: 'addMessage', payload: message }));
       } catch {
-        localStorage.removeItem("chatMessages");
+        localStorage.removeItem('chatMessages');
       }
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("chatMessages", JSON.stringify(state.messages));
+    localStorage.setItem('chatMessages', JSON.stringify(state.messages));
   }, [state.messages]);
 
   async function handleSend() {
@@ -81,43 +81,43 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     if (!trimmed || state.isLoading) return;
 
     const userMessage: Message = {
-      role: "user",
+      role: 'user',
       content: trimmed,
       timestamp: new Date().toISOString(),
     };
 
-    dispatch({ type: "addMessage", payload: userMessage });
-    dispatch({ type: "setPrompt", payload: "" });
-    dispatch({ type: "setLoading", payload: true });
+    dispatch({ type: 'addMessage', payload: userMessage });
+    dispatch({ type: 'setPrompt', payload: '' });
+    dispatch({ type: 'setLoading', payload: true });
 
     try {
       const result = await sendMessageApi(trimmed);
       const assistantMessage: Message = {
-        role: "assistant",
+        role: 'assistant',
         content: result.response,
         timestamp: new Date().toISOString(),
       };
-      dispatch({ type: "addMessage", payload: assistantMessage });
+      dispatch({ type: 'addMessage', payload: assistantMessage });
     } catch {
       const errorMessage: Message = {
-        role: "assistant",
-        content: "Error: Failed to get response from AI.",
+        role: 'assistant',
+        content: 'Error: Failed to get response from AI.',
         timestamp: new Date().toISOString(),
       };
-      dispatch({ type: "addMessage", payload: errorMessage });
+      dispatch({ type: 'addMessage', payload: errorMessage });
     } finally {
-      dispatch({ type: "setLoading", payload: false });
+      dispatch({ type: 'setLoading', payload: false });
     }
   }
 
   function clearChat() {
-    dispatch({ type: "clearMessages" });
+    dispatch({ type: 'clearMessages' });
   }
 
   const value = useMemo(
     () => ({
       ...state,
-      setPrompt: (value: string) => dispatch({ type: "setPrompt", payload: value }),
+      setPrompt: (value: string) => dispatch({ type: 'setPrompt', payload: value }),
       handleSend,
       clearChat,
     }),
@@ -130,7 +130,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 export function useChat() {
   const context = useContext(ChatContext);
   if (!context) {
-    throw new Error("useChat must be used within a ChatProvider");
+    throw new Error('useChat must be used within a ChatProvider');
   }
   return context;
 }

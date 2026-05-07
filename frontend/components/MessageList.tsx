@@ -1,4 +1,4 @@
-import type { Message } from "@/context/ChatContext";
+import type { Message } from '@/context/ChatContext';
 
 interface MessageListProps {
   messages: Message[];
@@ -20,12 +20,12 @@ export default function MessageList({ messages, isLoading }: MessageListProps) {
 }
 
 function MessageBubble({ message }: { message: Message }) {
-  const isUser = message.role === "user";
+  const isUser = message.role === 'user';
   return (
-    <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
       <div
         className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-          isUser ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+          isUser ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'
         }`}
       >
         <p className="whitespace-pre-wrap">{message.content}</p>

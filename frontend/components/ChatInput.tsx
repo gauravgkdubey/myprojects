@@ -14,7 +14,7 @@ export default function ChatInput({ prompt, setPrompt, handleSend, isLoading }: 
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
+          if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             handleSend();
           }
@@ -27,7 +27,7 @@ export default function ChatInput({ prompt, setPrompt, handleSend, isLoading }: 
         disabled={isLoading || !prompt.trim()}
         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
       >
-        {isLoading ? "Sending..." : "Send"}
+        {isLoading ? 'Sending...' : 'Send'}
       </button>
     </div>
   );

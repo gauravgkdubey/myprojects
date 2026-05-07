@@ -1,5 +1,5 @@
-import ChatWindow from "@/components/ChatWindow";
-import { ChatProvider } from "@/context/ChatContext";
+import ChatWindow from '@/components/ChatWindow';
+import { ChatProvider } from '@/context/ChatContext';
 
 export default function Home() {
   return (

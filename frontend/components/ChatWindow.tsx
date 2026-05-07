@@ -1,15 +1,15 @@
-"use client";
-import { useEffect, useRef } from "react";
-import { useChat } from "@/context/ChatContext";
-import MessageList from "@/components/MessageList";
-import ChatInput from "@/components/ChatInput";
+'use client';
+import { useEffect, useRef } from 'react';
+import { useChat } from '@/context/ChatContext';
+import MessageList from '@/components/MessageList';
+import ChatInput from '@/components/ChatInput';
 
 export default function ChatWindow() {
   const { messages, prompt, isLoading, setPrompt, handleSend, clearChat } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   return (
